@@ -1,0 +1,41 @@
+<!-- Ian Patel -->
+
+<project name = "Minesweeper" default = "run">
+	
+	<!-- Compile the project -->
+	<target name = "compile" depends = "clean">
+		<javac srcdir = "."/>
+	</target>
+	
+	<!-- Delete all that we hate -->
+	<target name = "clean">
+		<delete quiet = "true" includeemptydirs = "true">
+			<fileset dir = "." includes = "**/*.class"/>
+			<fileset dir = "META-INF" includes = "**"/>
+			<fileset dir = "." includes = "temp.txt"/>
+		</delete>
+	</target>
+	
+	<!-- Put it in a jar and ship it off to Canada -->
+	<target name = "jar">
+		<jar destfile = "Minesweeper.jar">
+			<fileset dir = "." includes = "**/*.java"/>
+			<fileset dir = "." includes = "build.xml"/>
+		</jar>
+	</target>
+
+	<!-- Run game normally -->
+	<target name = "run" depends = "compile">
+	        <java classname = "Minesweeper" fork = "true">
+				<arg value = "false"/>
+			</java>
+	</target>
+	
+	<!-- Run in debug mode, board layout is shown -->
+	<target name = "debug" depends = "compile">
+	        <java classname = "Minesweeper" fork = "true">
+				<arg value = "true"/>
+			</java>
+	</target>
+
+</project>
